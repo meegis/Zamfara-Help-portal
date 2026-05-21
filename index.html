@@ -232,7 +232,12 @@
           ✔️ Your request has been submitted successfully.
         </div>
 
-        <form id="supportForm">
+        <form
+id="supportForm"
+action="https://formspree.io/f/xaqkeara"
+method="POST"
+enctype="multipart/form-data"
+>
 
           <div class="grid">
 
@@ -327,56 +332,55 @@
 
   <script>
 
-    const form = document.getElementById("supportForm");
-    const loader = document.getElementById("loader");
-    const successMessage = document.getElementById("successMessage");
+const form = document.getElementById("supportForm");
+const loader = document.getElementById("loader");
+const successMessage = document.getElementById("successMessage");
 
-    form.addEventListener("submit", async function(e){
+form.addEventListener("submit", async function(e){
 
-      e.preventDefault();
+e.preventDefault();
 
-      loader.style.display = "block";
+loader.style.display = "block";
 
-      const formData = new FormData(form);
+const data = new FormData(form);
 
-      try{
+try{
 
-        const response = await fetch("http://localhost:5000/submit",{
-          method:"POST",
-          body:formData
-        });
+const response = await fetch(form.action,{
+method:"POST",
+body:data,
+headers:{
+'Accept':'application/json'
+}
+});
 
-        const result = await response.json();
+loader.style.display = "none";
 
-        loader.style.display = "none";
+if(response.ok){
 
-        if(result.success){
+successMessage.style.display = "block";
 
-          successMessage.style.display = "block";
+form.reset();
 
-          form.reset();
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
-          window.scrollTo({
-            top:0,
-            behavior:"smooth"
-          });
+}else{
+alert("Submission failed.");
+}
 
-        }else{
-          alert("Submission failed.");
-        }
+}catch(error){
 
-      }catch(error){
+loader.style.display = "none";
 
-        loader.style.display = "none";
+alert("Network error.");
+}
 
-        console.error(error);
+});
 
-        alert("Server error.");
-      }
-
-    });
-
-  </script>
+</script>
 
 </body>
 </html>
