@@ -1,2 +1,1 @@
-# Zamfara-Help-portal
-Help Request Portal
+Government Day Secondary School S/Gari 
