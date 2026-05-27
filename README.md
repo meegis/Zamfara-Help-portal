@@ -1,1 +1,1 @@
-Government Day Secondary School S/Gari 
+Meegis Photography 
